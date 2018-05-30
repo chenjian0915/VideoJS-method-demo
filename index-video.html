@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Video Demo</title>
+    <link href="https://vjs.zencdn.net/7.0.3/video-js.css" rel="stylesheet">
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
+    <script src="http://vjs.zencdn.net/ie8/ie8-version/videojs-ie8.min.js"></script>
+    <link rel="stylesheet" href="static/css/common.css">
+</head>
+<body>
+<div class="video-box">
+    <video id="my-video" class="video-js vjs-big-play-centered" controls preload="auto" width="640" height="264"
+           poster="MY_VIDEO_POSTER.jpg">
+        <source src="static/video.mp4" type='video/mp4'>
+        <source src="MY_VIDEO.webm" type='video/webm'>
+        <p class="vjs-no-js">
+            To view this video please enable JavaScript, and consider upgrading to a web browser that
+            <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+        </p>
+    </video>
+</div>
+<div class="button-box">
+    <button class="btn btn-primary start-play">开始播放</button>
+    <button class="btn btn-primary pause-play">暂停</button>
+    <!--<button class="btn btn-primary">重载</button>-->
+</div>
+<div class="button-box">
+    <button class="btn btn-primary get-duration">视频总时长</button>
+    <button class="btn btn-primary get-current-time">当前时间</button>
+    <button class="btn btn-primary get-remaining-time">剩余时间</button>
+</div>
+
+<script src="http://apps.bdimg.com/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="https://vjs.zencdn.net/7.0.3/video.js"></script>
+<script>
+    $(function(){
+        var VideoPlayer = videojs('my-video');
+
+        //开始播放功能
+        $('.start-play').on('click',function(){
+            VideoPlayer.play();
+            console.log(VideoPlayer.networkState());
+        });
+
+        //停止播放
+        $('.pause-play').on('click',function(){
+            VideoPlayer.pause()
+        });
+
+        //获取视频总时长
+        $('.get-duration').on('click',function(){
+            console.log('视频总时长:',parseInt(VideoPlayer.duration()));
+            console.log(VideoPlayer.currentTime());
+        });
+        //获取当前时间
+        $('.get-current-time').on('click',function(){
+            console.log('视频当前时间:',parseInt(VideoPlayer.currentTime()));
+        });
+        //获取剩余时间
+        $('.get-remaining-time').on('click',function(){
+            console.log('视频剩余时间:',parseInt(VideoPlayer.remainingTime()));
+        });
+        setTimeout(function(){console.log(VideoPlayer.remainingTime());VideoPlayer.exitFullWindow()},5000)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    });
+</script>
+</body>
+</html>
