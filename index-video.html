@@ -32,6 +32,10 @@
     <button class="btn btn-primary get-duration">视频总时长</button>
     <button class="btn btn-primary get-current-time">当前时间</button>
     <button class="btn btn-primary get-remaining-time">剩余时间</button>
+    <button class="btn btn-primary get-current-type">当前类型</button>
+    <button class="btn btn-primary get-dimension">获取宽度和高度</button>
+    <button class="btn btn-primary set-dimension">设置宽度和高度</button>
+    <button class="btn btn-primary get-ended">判断是否结束</button>
 </div>
 
 <script src="http://apps.bdimg.com/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -40,6 +44,11 @@
     $(function(){
         var VideoPlayer = videojs('my-video');
 
+        //默认是否静音
+//        VideoPlayer.defaultMuted(true);
+        VideoPlayer.scrubbing(true);
+        console.log(VideoPlayer.dimension('height'));
+//        console.log(getTagSettings(VideoPlayer));
         //开始播放功能
         $('.start-play').on('click',function(){
             VideoPlayer.play();
@@ -64,8 +73,39 @@
         $('.get-remaining-time').on('click',function(){
             console.log('视频剩余时间:',parseInt(VideoPlayer.remainingTime()));
         });
-        setTimeout(function(){console.log(VideoPlayer.remainingTime());VideoPlayer.exitFullWindow()},5000)
+        //获取当前视频播放格式
+        $('.get-current-type').on('click',function(){
+            console.log('当前播放视频格式:',VideoPlayer.currentType());
+        });
+        //获取当前播放视频宽度方法
+        $('.get-current-width').on('click',function(){
+            console.log('当前播放视频宽度:',VideoPlayer.currentWidth());
+        });
+        //获取当前播放视频宽度或高度方法
+        $('.get-dimension').on('click',function(){
+            console.log('当前播放视频宽度和高度:',VideoPlayer.dimension('height'),VideoPlayer.dimension('width'));
+        });
+        //设置当前播放视频宽度或高度方法
+        $('.set-dimension').on('click',function(){
+            var height = VideoPlayer.dimension('height');
+            var width = VideoPlayer.dimension('width');
+            height = height==264 ? height*2 : height/2;
+            width = width==640 ? width*2 : width/2;
+            VideoPlayer.dimension('height',height),VideoPlayer.dimension('width',width);
+            //也可以得用dimensions 直接传入宽 高值
+            //VideoPlayer.dimensions(width,height)
+        });
 
+        //获取当前是否为结束状态
+        $('.get-ended').on('click',function(){
+            console.log('当前是否为结束状态:',VideoPlayer.ended());
+        });
+
+
+//        setTimeout(function(){console.log(VideoPlayer.remainingTime());VideoPlayer.exitFullWindow()},5000)
+
+        var SeekBar = new SeekBar(VideoPlayer);
+        console.log(SeekBar)
 
 
 
